@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: intrnd
+    runtime: node
+    plan: free
+    buildCommand: npm ci --include=dev && npx prisma generate && npm run build:full
+    startCommand: npm run db:deploy && npm run backfill:submission-requirements && npm start
+    healthCheckPath: /api/health/ready
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLIENT_ORIGIN
+        sync: false
+      - key: PILOT_CATALOG_MODE
+        value: READY_ONLY
+      - key: PILOT_MINIMUM_READY_PROJECTS
+        value: "24"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: intrnd-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SUBMISSION_STORAGE_PROVIDER
+        value: r2
+      - key: R2_ACCOUNT_ID
+        sync: false
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: R2_BUCKET_NAME
+        sync: false
+      - key: CLAMAV_HOST
+        sync: false
+      - key: CLAMAV_PORT
+        value: "3310"
+
+databases:
+  - name: intrnd-db
+    databaseName: intrnd
+    user: intrnd
+    plan: free

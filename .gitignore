@@ -1,0 +1,57 @@
+# Dependencies
+node_modules/
+
+# Build and compiler output
+dist/
+dist-server/
+builds/
+coverage/
+.nyc_output/
+.vite/
+*.tsbuildinfo
+
+# Environment files and local secrets
+.env
+.env.*
+!.env.example
+
+# Local databases and persistent development data
+prisma/dev.db
+prisma/dev.db-*
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+.local/
+
+# Temporary files and internal review artifacts
+tmp/
+temp/
+.tmp/
+.cache/
+
+# Logs and process files
+logs/
+*.log
+*.pid
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Browser and test artifacts
+.playwright-cli/
+playwright-report/
+test-results/
+blob-report/
+output/
+
+# IDE and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+cookies.txt
