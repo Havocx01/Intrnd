@@ -1,8 +1,32 @@
 # Intrnd
 
-Archived student-project platform, preserved for portfolio review. Active development has ended.
+Build experience before your first internship.
 
-Students choose structured practice projects, follow personalized roadmaps, and submit evidence. Reviewers check the work, and admins manage access, cohorts, and project readiness. Ranking is deterministic and based on the student's profile.
+Intrnd is a full-stack platform that helps students turn practice projects into work they can show. Students choose a project, follow a personalized roadmap, and submit evidence for review. The goal is a clear record of what they built, the skills they used, and how the work was checked.
+
+Archived portfolio project. Active development has ended; this repository preserves the implementation for local evaluation and code review.
+
+## Project walkthrough
+
+Screenshots below are from the locally running interface. The homepage workspace and completion record use built-in sample content, not real student submissions.
+
+### From project brief to finished work
+
+The homepage introduces the workflow through a sample workspace: a scoped brief, progress, checkpoints, and a next action. The application includes 130 practice projects, with deterministic recommendations based on the student's saved profile.
+
+![Intrnd desktop homepage showing the project introduction and sample workspace](docs/images/homepage-desktop.png)
+
+### Proof that explains the work
+
+The sample completion record brings together the submission, reviewer, demonstrated skills, and deliverables. In the application, students submit evidence and reviewers can request revisions or verify the work. Completing a checklist alone does not mean a project is verified.
+
+![Sample completion record showing submission details, reviewer information, skills, and deliverables](docs/images/proof-demo.png)
+
+### Mobile account access
+
+The responsive sign-in screen keeps the form usable on a narrow display. Email/password authentication uses server-managed cookie sessions. Google sign-in is also supported when an OAuth client is configured.
+
+<img src="docs/images/sign-in-mobile.png" alt="Intrnd mobile sign-in screen with email, password, and Google sign-in options" width="320">
 
 ## What's included
 
@@ -13,6 +37,19 @@ Students choose structured practice projects, follow personalized roadmaps, and 
 - Tests for ranking, submissions, authorization, privacy, roadmaps, and catalog validation.
 
 Start with [ARCHITECTURE.md](./ARCHITECTURE.md) for the code map. The main implementation is in `src/`, `server/src/`, and `prisma/`.
+
+## Implementation highlights
+
+| Area | What the code demonstrates | Where to look |
+|---|---|---|
+| Frontend | Route-based pages, shared state, reusable components, and responsive layouts | [App routes](src/App.tsx), [app components](src/components/app/) |
+| Recommendations | Profile normalization and repeatable scoring with match explanations | [Ranking service](server/src/ranking/rankingService.ts), [profile features](server/src/personalization/profileFeatureService.ts) |
+| Project roadmaps | Checkpoint plans personalized to the student's pace and profile | [Roadmap service](server/src/roadmaps/roadmapService.ts) |
+| Evidence and review | Submission requirements, file validation, and controlled status transitions | [Submissions](server/src/submissions/), [application lifecycle](server/src/projects/applicationLifecycle.ts) |
+| Authentication | Cookie sessions, role checks, and server-side access control | [Authentication](server/src/auth/), [middleware](server/src/middleware/) |
+| Data and testing | Relational modeling, versioned migrations, and tests for core rules | [Prisma schema](prisma/schema.prisma), [test commands](package.json) |
+
+## Project status
 
 Payments, subscriptions, organization publishing, password recovery, and public legal-policy pages are not implemented. This is an archived prototype for local evaluation, not an operating service. Optional model-backed features and scraping are disabled by default; neither is needed for the main workflow.
 
